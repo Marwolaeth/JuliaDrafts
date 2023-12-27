@@ -2,7 +2,7 @@ using StatsBase
 using BenchmarkTools, Plots, StatsPlots, BenchmarkPlots
 
 # Set WD
-cd(raw"C:\Users\apavlyuchenko\Documents\Projects\Julia\ContentAnalysis")
+cd(raw"ContentAnalysis")
 path = "vectores/test_skipgram_1111_300.vec" # or maybe
 path = "vectores/ruscorpora_upos_skipgram_300_5_2018.vec"
 # readline(path)
