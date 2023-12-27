@@ -1,7 +1,7 @@
 using StatsBase
 using BenchmarkTools, Plots, StatsPlots, BenchmarkPlots
 
-cd(raw"C:\Users\apavlyuchenko\Documents\Projects\Julia\ContentAnalysis")
+cd(raw"ContentAnalysis")
 include("readvec.jl")
 
 path = "vectores/ruscorpora_upos_skipgram_300_5_2018.vec"
