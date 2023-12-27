@@ -2,7 +2,7 @@ using Distances
 using BenchmarkTools, Plots, StatsPlots, BenchmarkPlots
 
 # Set WD
-cd(raw"C:\Users\apavlyuchenko\Documents\Projects\Julia\ContentAnalysis")
+cd(raw"ContentAnalysis")
 path = "vectores/test_skipgram_1111_300.vec"
 # readline(path)
 include("readvec.jl")
