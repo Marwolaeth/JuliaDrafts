@@ -3,6 +3,7 @@ using JLD2
 cd(raw"ContentAnalysis")
 include("readvec.jl")
 
+# Visit https://rusvectores.org/ and download an embedding
 path = "vectores/ruscorpora_upos_skipgram_300_5_2018.vec"
 @time embed = ReadVec.read_vec(path)
 embed.ndims
