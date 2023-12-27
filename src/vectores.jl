@@ -1,6 +1,6 @@
 # Binary Files
 using JLD2
-cd(raw"C:\Users\apavlyuchenko\Documents\Projects\Julia\ContentAnalysis")
+cd(raw"ContentAnalysis")
 include("readvec.jl")
 
 path = "vectores/ruscorpora_upos_skipgram_300_5_2018.vec"
