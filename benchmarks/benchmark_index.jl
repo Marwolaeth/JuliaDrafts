@@ -2,11 +2,11 @@ using StatsBase
 using BenchmarkTools, Plots, StatsPlots, BenchmarkPlots
 
 # Set WD
-cd(raw"ContentAnalysis")
-path = "vectores/test_skipgram_1111_300.vec" # or maybe
+# cd(raw"ContentAnalysis")
+# path = "vectores/test_skipgram_1111_300.vec" # or maybe
 path = "vectores/ruscorpora_upos_skipgram_300_5_2018.vec"
 # readline(path)
-include("readvec.jl")
+include("../src/readvec.jl")
 using .ReadVec
 
 # Warm-up & Check
@@ -28,6 +28,11 @@ get(embedding2.dict, "дело_NOUN", "Token not found!")
 get(embedding2, "дело_NOUN")
 get(embedding3, "прочий_ADJ")
 typeof(get(embedding3, "прочий_ADJ"))
+
+# Benchmark Simple Indexing
+@benchmark [Base.get(embedding2.dict, t, "Nope") for t ∈ tokens] setup = (tokens = sample(embedding.vocab, 1_000))
+@benchmark [embedding2.dict[t] for t ∈ tokens] setup = (tokens = sample(embedding.vocab, 1_000))
+@benchmark [ReadVec.getsafe(embedding2, t) for t ∈ tokens] setup = (tokens = sample(embedding.vocab, 1_000))
 
 # Benchmark Dictionary Creation
 @benchmark embedding2 = IndexedWordEmbedding(embedding)

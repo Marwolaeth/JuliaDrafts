@@ -46,7 +46,7 @@ struct IndexedWordEmbedding <: AbstractEmbedding
     end
 end
 
-function index(emb::WordEmbedding)::IndexedWordEmbedding
+@inline function index(emb::WordEmbedding)::IndexedWordEmbedding
     IndexedWordEmbedding(emb)
 end
 
@@ -55,7 +55,7 @@ get(emb::IndexedWordEmbedding, query::String)
 
 `get()` interface to indexed word embedding objects: returns embedding vector (Float32) for a given token `query`. Called with the embedding object rather than with the dictionary. Type-stable: returns a view of the embedding vector or throws an exception.
 """
-function get(
+@inline function get(
     emb::IndexedWordEmbedding,
     query::String
 )::SubArray{
@@ -78,7 +78,7 @@ getsafe(emb::IndexedWordEmbedding, query::String)
 
 For internal use only. This function is similar to `get()` but returns a zero vector if the `query` is not in the vocabulary.
 """
-function getsafe(
+@inline function getsafe(
     emb::IndexedWordEmbedding,
     query::String
 )::SubArray{
@@ -123,7 +123,7 @@ read_vec(path::AbstractString)::WordEmbedding
 
 Reads a local embedding vector from `path` and creates a `WordEmbedding` object using CSV.jl.
 """
-function read_vec(path::AbstractString)::WordEmbedding
+@inline function read_vec(path::AbstractString)::WordEmbedding
     # Read dimensionality
     ntokens, ndims = parse.(Int, split(readline(path), ' '))
 
@@ -194,7 +194,7 @@ The `subspace()` function takes an existing embedding and a subset of its vocabu
 
 It's worth noting that this method is relatively slow and doesn't assume the source embedding to be indexed. Therefore, it doesn't take advantage of a lookup dictionary. It's recommended to index an embedding before subsetting it for better performance.
 """
-function subspace(emb::AbstractEmbedding, tokens::Vector{String})::WordEmbedding
+@inline function subspace(emb::AbstractEmbedding, tokens::Vector{String})::WordEmbedding
     # Clear out out-of-vocabulary tokens
     tokens::Vector{String} = intersect(tokens, emb.vocab)
     ntokens = length(tokens)
@@ -230,7 +230,7 @@ It is recommended to `index()` an embedding before subsetting it, as this method
 
 Note that the result is not an indexed embedding, so if the user wants it indexed, it needs to be done manually.
 """
-function subspace(emb::IndexedWordEmbedding, tokens::Vector{String})::WordEmbedding
+@inline function subspace(emb::IndexedWordEmbedding, tokens::Vector{String})::WordEmbedding
     # Clear out out-of-vocabulary tokens
     # tokens::Vector{String} = intersect(tokens, emb.vocab)
     ntokens = length(tokens)
